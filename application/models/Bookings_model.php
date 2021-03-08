@@ -16,7 +16,7 @@ class Bookings_model extends CI_Model
 		parent::__construct();
 	}
 
-
+/* ini comment */
 
 
 	function Get($booking_id)
