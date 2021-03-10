@@ -16,7 +16,6 @@ class Bookings_model extends CI_Model
 		parent::__construct();
 	}
 
-/* ini comment */
 
 
 	function Get($booking_id)
@@ -69,7 +68,7 @@ class Bookings_model extends CI_Model
 			$week_id = $data['week_id'];
 		}
 
-		if ( ! strlen($data['day_num'])) {
+		if (!strlen($data['day_num'])) {
 			$day_num = date('N', strtotime($data['date']));
 		} else {
 			$day_num = $data['day_num'];
@@ -80,14 +79,14 @@ class Bookings_model extends CI_Model
 				WHERE period_id = ?
 				AND room_id = ?";
 
-		if ( ! empty($data['date'])) {
+		if (!empty($data['date'])) {
 			$date_escaped = $this->db->escape($data['date']);
 			$sql .= " AND (`date` = {$date_escaped} OR (day_num = {$day_num} AND week_id = {$week_id}))";
 		} else {
 			$sql .= " AND (day_num = {$day_num} AND week_id = {$week_id}) ";
 		}
 
-		if ( ! empty($data['booking_id'])) {
+		if (!empty($data['booking_id'])) {
 			$sql .= " AND booking_id != " . $this->db->escape($data['booking_id']);
 		}
 
@@ -158,12 +157,12 @@ class Bookings_model extends CI_Model
 			$user_id = $this->userauth->user->user_id;
 
 			if ($booking->date == NULL) {
-			// If no date set, then it's a static/timetable/recurring booking
+				// If no date set, then it's a static/timetable/recurring booking
 				$cell['class'] = 'static';
-				$cell['body']= '';
+				$cell['body'] = '';
 				$display_user_setting = setting('bookings_show_user_recurring');
 			} else {
-			// Date is set, it's a once off staff booking
+				// Date is set, it's a once off staff booking
 				$cell['class'] = 'staff';
 				$cell['body'] = '';
 				$display_user_setting = setting('bookings_show_user_single');
@@ -187,8 +186,10 @@ class Bookings_model extends CI_Model
 			if (isset($users[$booking->user_id]) && $show_user) {
 				$username = $users[$booking->user_id]->username;
 				$displayname = trim($users[$booking->user_id]->displayname);
-				if (strlen($displayname) < 2) { $displayname = $username; }
-				$vars['{user}'] = '<div class="booking-cell-user">'.html_escape($displayname).'</div>';
+				if (strlen($displayname) < 2) {
+					$displayname = $username;
+				}
+				$vars['{user}'] = '<div class="booking-cell-user">' . html_escape($displayname) . '</div>';
 			}
 
 			// Notes
@@ -198,13 +199,13 @@ class Bookings_model extends CI_Model
 				if (strlen($notes) > 15) {
 					$tooltip = 'up-tooltip="' . $notes . '"';
 				}
-				$vars['{notes}'] .= '<div class="booking-cell-notes" ' . $tooltip . '>'.character_limiter($notes, 15).'</div>';
+				$vars['{notes}'] .= '<div class="booking-cell-notes" ' . $tooltip . '>' . character_limiter($notes, 15) . '</div>';
 			}
 
 			// Edit if admin?
 			//
-			 if ($this->userauth->is_level(ADMINISTRATOR)) {
-				$edit_url = site_url('bookings/edit/'.$booking->booking_id);
+			if ($this->userauth->is_level(ADMINISTRATOR)) {
+				$edit_url = site_url('bookings/edit/' . $booking->booking_id);
 				$actions[] = "<a class='booking-action' href='{$edit_url}' title='Edit this booking'>edit</a>";
 			}
 
@@ -212,14 +213,14 @@ class Bookings_model extends CI_Model
 			//
 			if (
 				($this->userauth->is_level(ADMINISTRATOR))
-				OR ($user_id == $booking->user_id)
-				OR ( ($user_id == $rooms[$room_id]->user_id) && ($booking->date != NULL) )
+				or ($user_id == $booking->user_id)
+				or (($user_id == $rooms[$room_id]->user_id) && ($booking->date != NULL))
 			) {
 				$cancel_msg = 'Are you sure you want to cancel this booking?';
-				if ($user_id != $booking->user_id){
+				if ($user_id != $booking->user_id) {
 					$cancel_msg = 'Are you sure you want to cancel this booking?\n\n(**) Please take caution, it is not your own.';
 				}
-				$cancel_url = site_url('bookings/cancel/'.$booking->booking_id);
+				$cancel_url = site_url('bookings/cancel/' . $booking->booking_id);
 
 				$actions[] = "<button
 					class='button-empty booking-action'
@@ -230,7 +231,7 @@ class Bookings_model extends CI_Model
 				>cancel</button>";
 			}
 
-			if ( ! empty($actions)) {
+			if (!empty($actions)) {
 				$vars['{actions}'] = '<div class="booking-cell-actions">' . implode(" ", $actions) . '</div>';
 			}
 
@@ -238,37 +239,29 @@ class Bookings_model extends CI_Model
 			$cell['body'] = strtr($template, $vars);
 			// Remove tags that don't have content
 			$cell['body'] = str_replace(array_keys($vars), '', $cell['body']);
-
-		}
-		else
-		{
+		} else {
 			// No bookings
 			$cell['class'] = 'free';
 			$cell['body'] = '';
 
 			$booking_status = $this->userauth->can_create_booking($booking_date_ymd);
-			if ($booking_status->result === TRUE)
-			{
+			if ($booking_status->result === TRUE) {
 				$book_url = site_url($url);
 				$cell['class'] = 'free';
-				$cell['body'] = '<a href="'.$book_url.'"><img src="' . base_url('assets/images/ui/accept.png') . '" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle" />Book</a>';
-				if ($booking_status->is_admin)
-				{
-					$cell['body'] .= '<input type="checkbox" name="recurring[]" value="'.$url.'" />';
+				$cell['body'] = '<a href="' . $book_url . '"><img src="' . base_url('assets/images/ui/accept.png') . '" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle" />Book</a>';
+				if ($booking_status->is_admin) {
+					$cell['body'] .= '<input type="checkbox" name="recurring[]" value="' . $url . '" />';
 				}
 			}
-
-
 		}
 
 		// If a holiday is applicable, display that instead.
-		if (isset($holidays[$booking_date_ymd]))
-		{
+		if (isset($holidays[$booking_date_ymd])) {
 			$cell['class'] = 'holiday';
 			$cell['body'] = $holidays[$booking_date_ymd][0]->name;
 		}
 
-	#$cell['width'] =
+		#$cell['width'] =
 		#return sprintf('<td class="%s" valign="middle" align="center">%s</td>', $cell['class'], $cell['body']);
 		return $this->load->view('bookings/table/bookingcell', $cell, True);
 	}
@@ -288,8 +281,12 @@ class Bookings_model extends CI_Model
 		$dt->setTime(0, 0, 0);
 
 		switch ($direction) {
-			case 'next': $modify_str = '+1 day'; break;
-			case 'previous': $modify_str = '-1 day'; break;
+			case 'next':
+				$modify_str = '+1 day';
+				break;
+			case 'previous':
+				$modify_str = '-1 day';
+				break;
 		}
 
 		if (empty($this->all_periods)) {
@@ -326,7 +323,7 @@ class Bookings_model extends CI_Model
 		extract($data);
 
 		// Format the date to Ymd
-		if ( ! isset($query['date'])) {
+		if (!isset($query['date'])) {
 			$date = time();
 			$date_ymd = date("Y-m-d", $date);
 		} else {
@@ -357,7 +354,7 @@ class Bookings_model extends CI_Model
 
 		// Find out which columns to display and which view type we use
 		$style = $this->BookingStyle();
-		if ( ! $style OR (empty($style['cols']) OR empty($style['display']) ) ) {
+		if (!$style or (empty($style['cols']) or empty($style['display']))) {
 			$html = msgbox('error', 'No booking style has been configured. Please contact your administrator.');
 			return $html;
 		}
@@ -365,7 +362,7 @@ class Bookings_model extends CI_Model
 		$display = $style['display'];
 
 		// Select a default room if none given (first room)
-		if ( ! isset($query['room'])) {
+		if (!isset($query['room'])) {
 			$room_c = current($rooms);
 			$query['room'] = $room_c->room_id;
 		}
@@ -379,18 +376,18 @@ class Bookings_model extends CI_Model
 					'room_id' => $query['room'],
 					'chosen_date' => $date_ymd,
 				), TRUE);
-			break;
+				break;
 
 			case 'day':
 				$html .= $this->load->view('bookings/select_date', array(
 					'chosen_date' => $date,
 				), TRUE);
-			break;
+				break;
 
 			default:
 				$html .= msgbox('error', 'Application error: No display type set.');
 				return $html;
-			break;
+				break;
 		}
 
 		$weekdates = array();
@@ -417,7 +414,7 @@ class Bookings_model extends CI_Model
 					'direction' => 'next',
 				));
 
-			break;
+				break;
 
 			case 'day':
 
@@ -437,7 +434,7 @@ class Bookings_model extends CI_Model
 
 				$week_bar['longdate'] = date(setting('date_format_long'), $date);
 
-			break;
+				break;
 		}
 
 		// Do we have any info on this week name?
@@ -456,17 +453,16 @@ class Bookings_model extends CI_Model
 					$this_date = strtotime("+1 day", $this_date);
 				}
 
-				$week_bar['longdate'] = 'Week commencing '.date(setting('date_format_long'), strtotime($this_week->date));
+				$week_bar['longdate'] = 'Week commencing ' . date(setting('date_format_long'), strtotime($this_week->date));
 			}
 
 			$week_bar['style'] = sprintf('padding:6px 3px;font-weight:bold;background:#%s;color:#%s', $this_week->bgcol, $this_week->fgcol);
 
 			$html .= $this->load->view('bookings/week_bar', $week_bar, TRUE);
-
 		} else {
 
 			// No week - change the properties to indicate no week available
-			$week_bar['longdate'] = 'Week of '.date(setting('date_format_long'), $date);;
+			$week_bar['longdate'] = 'Week of ' . date(setting('date_format_long'), $date);;
 			$week_bar['week_name'] = 'None';
 			$week_bar['style'] = sprintf('padding:6px 3px;font-weight:bold;background:#%s;color:#%s', 'dddddd', '000');
 			$html .= $this->load->view('bookings/week_bar', $week_bar, TRUE);
@@ -474,7 +470,6 @@ class Bookings_model extends CI_Model
 			$html .= msgbox('error', 'No timetable week has been configured for this selection.');
 			// Flag error to stop output before table
 			$err = TRUE;
-
 		}
 
 		// Holidays
@@ -485,17 +480,14 @@ class Bookings_model extends CI_Model
 		$sql = NULL;
 
 		// See if our selected date is in a holiday
-		if ($display === 'day')
-		{
+		if ($display === 'day') {
 			// If we are day at a time, it is easy!
 			// = get me any holidays where this day is anywhere in it
 			$sql = "SELECT *
 					FROM holidays
 					WHERE date_start <= '{$date_ymd}'
 					AND date_end >= '{$date_ymd}' ";
-		}
-		else
-		{
+		} else {
 			if ($this_week) {
 				// If we are room/week at a time, little bit more complex
 				$week_start = date('Y-m-d', strtotime($this_week->date));
@@ -524,24 +516,22 @@ class Bookings_model extends CI_Model
 		}
 
 		// Organise our holidays by date
-		foreach ($holidays as $holiday)
-		{
+		foreach ($holidays as $holiday) {
 			// Get all dates between date_start & date_end
 			$start_dt = new DateTime($holiday->date_start);
 			$end_dt = new DateTime($holiday->date_end);
 			$end_dt->modify('+1 day');
 			$range = new DatePeriod($start_dt, $holiday_interval, $end_dt);
-			foreach ($range as $date)
-			{
+			foreach ($range as $date) {
 				$holiday_ymd = $date->format('Y-m-d');
-				$holiday_dates[ $holiday_ymd ][] = $holiday;
+				$holiday_dates[$holiday_ymd][] = $holiday;
 			}
 		}
 
 		if ($display === 'day' && isset($holiday_dates[$date_ymd])) {
 
 			// The date selected IS in a holiday - give them a nice message saying so.
-			$holiday = $holiday_dates[ $date_ymd ][0];
+			$holiday = $holiday_dates[$date_ymd][0];
 			$msg = sprintf(
 				'The date you selected is during a holiday priod (%s, %s - %s).',
 				$holiday->name,
@@ -561,7 +551,7 @@ class Bookings_model extends CI_Model
 				$prev_date = date("Y-m-d", strtotime("-1 week", strtotime($holiday->date_start)));
 			}
 
-			if ( ! isset($query['direction'])) {
+			if (!isset($query['direction'])) {
 				$query['direction'] = 'forward';
 			}
 
@@ -572,15 +562,14 @@ class Bookings_model extends CI_Model
 					$uri = 'bookings?' . http_build_query($query);
 					$link = anchor($uri, "Click here to view immediately after the holiday.");
 					$html .= "<p><strong>{$link}</strong></p>";
-				break;
+					break;
 
 				case 'back':
 					$query['date'] = $prev_date;
 					$uri = 'bookings?' . http_build_query($query);
 					$link = anchor($uri, "Click here to view immediately before the holiday.");
 					$html .= "<p><strong>{$link}</strong></p>";
-				break;
-
+					break;
 			}
 
 			$err = TRUE;
@@ -612,7 +601,7 @@ class Bookings_model extends CI_Model
 			'days' => count(array_keys($this->periods_by_day_num)),	// count($school['days_list']),
 		);
 
-		$col_width = sprintf('%s%%', round(100/($count[$cols]+1)));
+		$col_width = sprintf('%s%%', round(100 / ($count[$cols] + 1)));
 
 		// Open form
 		$html .= form_open('bookings/action', array(
@@ -635,13 +624,13 @@ class Bookings_model extends CI_Model
 					$html .= $this->load->view('bookings/table/cols_periods', $period, TRUE);
 				}
 
-			break;
+				break;
 
 			case 'days':
 
 				foreach ($school['days_list'] as $day_num => $dayofweek) {
 					// Skip days without periods
-					if ( ! array_key_exists($day_num, $this->periods_by_day_num)) {
+					if (!array_key_exists($day_num, $this->periods_by_day_num)) {
 						continue;
 					}
 					$day['width'] = $col_width;
@@ -650,7 +639,7 @@ class Bookings_model extends CI_Model
 					$html .= $this->load->view('bookings/table/headings/days', $day, TRUE);
 				}
 
-			break;
+				break;
 
 			case 'rooms':
 
@@ -659,8 +648,7 @@ class Bookings_model extends CI_Model
 					$html .= $this->load->view('bookings/table/cols_rooms', $room, TRUE);
 				}
 
-			break;
-
+				break;
 		}	// End switch for cols
 
 		$bookings = array();
@@ -687,7 +675,7 @@ class Bookings_model extends CI_Model
 
 						foreach ($school['days_list'] as $day_num => $day_name) {
 							// Skip days without periods
-							if ( ! array_key_exists($day_num, $this->periods_by_day_num)) {
+							if (!array_key_exists($day_num, $this->periods_by_day_num)) {
 								continue;
 							}
 
@@ -746,19 +734,17 @@ class Bookings_model extends CI_Model
 									// Bookable
 									$html .= $this->BookingCell($bookings, $period->period_id, $rooms, $users, $query['room'], $url, $booking_date_ymd, $holiday_dates);
 								} else {
-								// Period not bookable on this day, do not show or allow any bookings
+									// Period not bookable on this day, do not show or allow any bookings
 									$html .= '<td align="center">&nbsp;</td>';
 								}
-
 							}		// Done looping periods (cols)
 
 							// This day row is finished
 							$html .= '</tr>';
-
 						}
 
 
-					break;		// End $display 'room' $cols 'periods'
+						break;		// End $display 'room' $cols 'periods'
 
 					case 'days':
 
@@ -779,7 +765,7 @@ class Bookings_model extends CI_Model
 									WHERE room_id = ?
 									AND period_id = ?
 									AND ( week_id = ? OR (`date` >= ? AND `date` <= ?) )";
-									#."AND ((day_num=$day_num AND week_id=$this_week->week_id) OR date='$date_ymd') ";
+							#."AND ((day_num=$day_num AND week_id=$this_week->week_id) OR date='$date_ymd') ";
 
 							$bookings_query = $this->db->query($sql, array(
 								$query['room'],
@@ -792,7 +778,7 @@ class Bookings_model extends CI_Model
 							$results = $bookings_query->result();
 							if ($bookings_query->num_rows() > 0) {
 								foreach ($results as $row) {
-									if ( ! empty($row->date)) {
+									if (!empty($row->date)) {
 										// Static booking on date
 										$this_daynum = date('N', strtotime($row->date));
 										$bookings[$this_daynum] = $row;
@@ -813,7 +799,7 @@ class Bookings_model extends CI_Model
 
 							foreach ($school['days_list'] as $day_num => $day_name) {
 
-								if ( ! array_key_exists($day_num, $this->periods_by_day_num)) {
+								if (!array_key_exists($day_num, $this->periods_by_day_num)) {
 									continue;
 								}
 
@@ -841,19 +827,17 @@ class Bookings_model extends CI_Model
 									// Period not bookable on this day, do not show or allow any bookings
 									$html .= '<td align="center">&nbsp;</td>';
 								}
-
 							}
 
 							// This period row is finished
 							$html .= '</tr>';
-
 						}
 
-					break;		// End $display 'room' $cols 'days'
+						break;		// End $display 'room' $cols 'days'
 
 				}
 
-			break;
+				break;
 
 			case 'day':
 
@@ -891,7 +875,7 @@ class Bookings_model extends CI_Model
 								$date_ymd,
 							));
 
-							if ($bookings_query->num_rows() > 0){
+							if ($bookings_query->num_rows() > 0) {
 								$result = $bookings_query->result();
 								foreach ($result as $row) {
 									$bookings[$row->period_id] = $row;
@@ -929,10 +913,9 @@ class Bookings_model extends CI_Model
 
 							// End row
 							$html .= '</tr>';
-
 						}
 
-					break;		// End $display 'day' $cols 'periods'
+						break;		// End $display 'day' $cols 'periods'
 
 					case 'rooms':
 
@@ -963,7 +946,7 @@ class Bookings_model extends CI_Model
 
 							if ($bookings_query->num_rows() > 0) {
 								$result = $bookings_query->result();
-								foreach ($result as $row){
+								foreach ($result as $row) {
 									$bookings[$row->room_id] = $row;
 								}
 							}
@@ -1005,15 +988,13 @@ class Bookings_model extends CI_Model
 
 							// End period row
 							$html .= '</tr>';
-
 						}
 
-					break;		// End $display 'day' $cols 'rooms'
+						break;		// End $display 'day' $cols 'rooms'
 
 				}
 
-			break;
-
+				break;
 		}
 
 
@@ -1278,8 +1259,4 @@ class Bookings_model extends CI_Model
 
 		return $total;
 	}
-
-
-
-
 }
