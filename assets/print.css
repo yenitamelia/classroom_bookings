@@ -268,7 +268,7 @@ tr.title td{ padding:4px;background:#D6DFF7; color:#000; font-size:10pt; letter-
 	margin:0;
 }
 
-.cssform label.required{ /*font-weight:bold;*/ }
+
 .cssform label.required:after{ content:"*";color:red;font-weight:normal; }
 
 .cssform div.submit{
@@ -284,15 +284,7 @@ tr.title td{ padding:4px;background:#D6DFF7; color:#000; font-size:10pt; letter-
 	padding:0px 4px;
 }
 
-.cssform input[type="text"]{ /*width of text boxes. IE6 does not understand this attribute*/
-/*width: 180px;*/
-}
 
-.cssform textarea{
-/*width: 250px;
-height: 150px;*/
-/*border:2px inset;*/
-}
 
 /*.threepxfix class below:
 Targets IE6- ONLY. Adds 3 pixel indent for multi-line form contents.
