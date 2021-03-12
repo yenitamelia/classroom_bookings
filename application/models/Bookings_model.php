@@ -1264,7 +1264,7 @@ class Bookings_model extends CI_Model
 
 	public function get_jadwal($user_id)
 	{
-		$sql = "SELECT bookings.user_id, bookings.notes, bookings.date, periods.name AS sesi, rooms.name AS ruang FROM bookings JOIN periods ON bookings.period_id = periods.period_id JOIN rooms ON bookings.room_id = rooms.room_id WHERE bookings.user_id = ? ORDER BY bookings.date, sesi";
+		$sql = "SELECT bookings.user_id, bookings.notes, bookings.date, periods.name AS sesi, rooms.name AS ruang FROM bookings JOIN periods ON bookings.period_id = periods.period_id JOIN rooms ON bookings.room_id = rooms.room_id WHERE bookings.user_id = ? AND bookings.date  >= FROM_DAYS(TO_DAYS(CURDATE())-MOD(TO_DAYS(CURDATE())-2,7)) + INTERVAL 7 DAY ORDER BY bookings.date, sesi";
 		$query = $this->db->query($sql, [$user_id]);
 		$row = $query->result();
 		return $row;
