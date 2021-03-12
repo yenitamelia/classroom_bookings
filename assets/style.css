@@ -514,7 +514,6 @@ div.g p, div.g1 p {
 table.bookings td{ font-size:90%;font-family:tahoma,verdana,sans-serif; padding:3px;}
 
 table.bookings td.free{ background:#fff;border:1px solid #ccc; /*#D3E6CF;  /*#C7F2BC;*/ color:#000; }   /* Free period */
-table.bookings td.static{ background:#E68A73; color:#fff; border:1px solid #E68A73; }   /* Timetabled lesson */
 table.bookings td.staff{ background:#3082BF; color:#fff; border:1px solid #3082BF; }    /* Booked by staff */
 table.bookings td.holiday{ background:#f6f6f6; color:#333; border:1px solid #ccc; }    /* Holiday */
 

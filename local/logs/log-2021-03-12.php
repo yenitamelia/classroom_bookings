@@ -32,3 +32,10 @@ ERROR - 2021-03-12 04:28:34 --> Severity: Warning --> Invalid argument supplied 
 ERROR - 2021-03-12 04:28:40 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\classroom_bookings\application\views\bookings\bookings_book.php 71
 ERROR - 2021-03-12 04:28:40 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\classroom_bookings\application\views\bookings\bookings_book.php 87
 ERROR - 2021-03-12 05:09:30 --> Userauth: Unsuccessful login for admin. Reasons: ["password_incorrect"]
+ERROR - 2021-03-12 10:29:40 --> Severity: error --> Exception: Call to undefined method Bookings_model::get_profile() C:\xampp\htdocs\classroom_bookings\application\controllers\Profile.php 49
+ERROR - 2021-03-12 10:29:42 --> Severity: error --> Exception: Call to undefined method Bookings_model::get_profile() C:\xampp\htdocs\classroom_bookings\application\controllers\Profile.php 49
+ERROR - 2021-03-12 10:29:45 --> Severity: error --> Exception: Call to undefined method Bookings_model::get_profile() C:\xampp\htdocs\classroom_bookings\application\controllers\Profile.php 49
+ERROR - 2021-03-12 10:29:49 --> Severity: error --> Exception: Call to undefined method Bookings_model::get_profile() C:\xampp\htdocs\classroom_bookings\application\controllers\Profile.php 49
+ERROR - 2021-03-12 10:29:51 --> Severity: error --> Exception: Call to undefined method Bookings_model::get_profile() C:\xampp\htdocs\classroom_bookings\application\controllers\Profile.php 49
+ERROR - 2021-03-12 10:29:54 --> Severity: error --> Exception: Call to undefined method Bookings_model::get_profile() C:\xampp\htdocs\classroom_bookings\application\controllers\Profile.php 49
+ERROR - 2021-03-12 10:30:30 --> Severity: error --> Exception: Call to undefined method Bookings_model::get_profile() C:\xampp\htdocs\classroom_bookings\application\controllers\Profile.php 49
