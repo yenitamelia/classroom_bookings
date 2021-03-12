@@ -202,27 +202,28 @@ class Bookings extends MY_Controller
 			$booking->date = $query['date'];
 			$booking->notes = '';
 			$booking->user_id = $this->userauth->user->user_id;
+			$booking->day_num = isset($query['day']) ? $query['day'] : NULL;
+			$booking->week_id = isset($query['week']) ? $query['week'] : NULL;
 
-			if ($this->userauth->is_level(ADMINISTRATOR)) {
-				$booking->day_num = isset($query['day']) ? $query['day'] : NULL;
-				$booking->week_id = isset($query['week']) ? $query['week'] : NULL;
-
-				if (empty($booking->day_num)) {
-					$booking->day_num = date('N', strtotime($query['date']));
-				}
+			if (empty($booking->day_num)) {
+				$booking->day_num = date('N', strtotime($query['date']));
 			}
+			//if ($this->userauth->is_level(ADMINISTRATOR)) {
+				
+			//}
 
 			$this->data['booking'] = $booking;
 			$this->data['hidden'] = (array) $booking;
 
 		}
 
+		$this->data['days'] = $this->periods_model->days;
+		$this->data['rooms'] = $this->rooms_model->Get();
+		$this->data['periods'] = $this->periods_model->Get();
+		$this->data['weeks'] = $this->weeks_model->Get();
+
 		// Lookups we need if an admin user
 		if ($this->userauth->is_level(ADMINISTRATOR)) {
-			$this->data['days'] = $this->periods_model->days;
-			$this->data['rooms'] = $this->rooms_model->Get();
-			$this->data['periods'] = $this->periods_model->Get();
-			$this->data['weeks'] = $this->weeks_model->Get();
 			$this->data['users'] = $this->school['users'];
 		}
 
@@ -428,13 +429,23 @@ class Bookings extends MY_Controller
 			return (empty($booking_id) ? $this->book() : $this->edit($booking_id));
 		}
 
-		$booking_data = array(
-			'user_id' => $this->input->post('user_id'),
-			'period_id' => $this->input->post('period_id'),
-			'room_id' => $this->input->post('room_id'),
-			'notes' => $this->input->post('notes'),
-			'booking_id' => $this->input->post('booking_id'),
-		);
+		if ($this->userauth->is_level(TEACHER)) {
+			$booking_data = array(
+				'user_id' => $this->userauth->user->user_id,
+				'period_id' => $this->input->post('period_id'),
+				'room_id' => $this->input->post('room_id'),
+				'notes' => $this->input->post('notes'),
+				'booking_id' => $this->input->post('booking_id'),
+			);
+		} else {
+			$booking_data = array(
+				'user_id' => $this->input->post('user_id'),
+				'period_id' => $this->input->post('period_id'),
+				'room_id' => $this->input->post('room_id'),
+				'notes' => $this->input->post('notes'),
+				'booking_id' => $this->input->post('booking_id'),
+			);
+		}
 
 		// Determine if this booking is recurring or static.
 		if ($this->input->post('date')) {

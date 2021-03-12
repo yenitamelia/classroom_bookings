@@ -246,9 +246,8 @@ class Bookings_model extends CI_Model
 
 			$booking_status = $this->userauth->can_create_booking($booking_date_ymd);
 			if ($booking_status->result === TRUE) {
-				$book_url = site_url($url);
 				$cell['class'] = 'free';
-				$cell['body'] = '<a href="' . $book_url . '"><img src="' . base_url('assets/images/ui/accept.png') . '" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle" />Book</a>';
+				$cell['body'] = '<img src="' . base_url('assets/images/ui/accept.png') . '" width="16" height="16" alt="Book" title="Book" hspace="4" align="absmiddle" />';
 				if ($booking_status->is_admin) {
 					$cell['body'] .= '<input type="checkbox" name="recurring[]" value="' . $url . '" />';
 				}
@@ -726,7 +725,7 @@ class Bookings_model extends CI_Model
 									'week' => $this_week->week_id,
 									'date' => $booking_date_ymd,
 								);
-								$url = 'bookings/book?' . http_build_query($book_url_query);
+								$url = 'bookings/book';
 
 								// This period is bookable on this day?
 								$key = "day_{$day_num}";
@@ -741,6 +740,7 @@ class Bookings_model extends CI_Model
 
 							// This day row is finished
 							$html .= '</tr>';
+
 						}
 
 
@@ -813,7 +813,7 @@ class Bookings_model extends CI_Model
 									'week' => $this_week->week_id,
 									'date' => $booking_date_ymd,
 								);
-								$url = 'bookings/book?' . http_build_query($book_url_query);
+								$url = 'bookings/book';
 
 								// $url = 'period/%s/room/%s/day/%s/week/%s/date/%s';
 								// $url = sprintf($url, $period->period_id, $room_id, $day_num, $this_week->week_id, $booking_date_ymd);
@@ -899,7 +899,7 @@ class Bookings_model extends CI_Model
 									'week' => $this_week->week_id,
 									'date' => $date_ymd,
 								);
-								$url = 'bookings/book?' . http_build_query($book_url_query);
+								$url = 'bookings/book';
 
 								$key = "day_{$day_num}";
 								if ($period->{$key} == '1') {
@@ -970,7 +970,7 @@ class Bookings_model extends CI_Model
 									'week' => $this_week->week_id,
 									'date' => $date_ymd,
 								);
-								$url = 'bookings/book?' . http_build_query($book_url_query);
+								$url = 'bookings/book';
 
 								// $url = 'period/%s/room/%s/day/%s/week/%s/date/%s';
 								// $url = sprintf($url, $period->period_id, $room->room_id, $day_num, $this_week->week_id, $date_ymd);
@@ -1002,6 +1002,9 @@ class Bookings_model extends CI_Model
 
 		// Finish table
 		$html .= '</table>';
+
+		$book_url = site_url($url);
+		$html .= '<p style="text-align : center;"><a href="' . $book_url . '">Book a Room</a></p>';
 
 		// Visual key
 		$html .= $this->load->view('bookings/key', NULL, TRUE);

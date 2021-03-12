@@ -41,11 +41,8 @@ if (isset($booking) && ! empty($booking->date)) {
 	<?php echo form_error($field); ?>
 
 
-	<?php if ($this->userauth->is_level(ADMINISTRATOR)): ?>
-
-
 	<p>
-		<label>Date:</label>
+		<label>Date(dd/mm/yyyy):</label>
 		<?php
 		$field = 'date';
 		$default = '';
@@ -63,6 +60,7 @@ if (isset($booking) && ! empty($booking->date)) {
 		));
 		?>
 	</p>
+
 	<?php echo form_error($field); ?>
 
 
@@ -100,6 +98,7 @@ if (isset($booking) && ! empty($booking->date)) {
 	</p>
 	<?php echo form_error($field) ?>
 
+	<?php if ($this->userauth->is_level(ADMINISTRATOR)): ?>
 
 	<p>
 		<label for="user_id">User:</label>
