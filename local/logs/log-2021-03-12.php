@@ -31,3 +31,4 @@ ERROR - 2021-03-12 04:28:34 --> Severity: Warning --> Invalid argument supplied 
 ERROR - 2021-03-12 04:28:34 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\classroom_bookings\application\views\bookings\bookings_book.php 87
 ERROR - 2021-03-12 04:28:40 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\classroom_bookings\application\views\bookings\bookings_book.php 71
 ERROR - 2021-03-12 04:28:40 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp\htdocs\classroom_bookings\application\views\bookings\bookings_book.php 87
+ERROR - 2021-03-12 05:09:30 --> Userauth: Unsuccessful login for admin. Reasons: ["password_incorrect"]

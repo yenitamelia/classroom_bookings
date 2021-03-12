@@ -24,7 +24,7 @@ if (isset($booking) && ! empty($booking->date)) {
 	<legend accesskey="I" tabindex="<?php echo tab_index() ?>">Booking Information</legend>
 
 	<p>
-		<label>Use:</label>
+		<label>Courses:</label>
 		<?php
 		$field = 'notes';
 		$value = set_value($field, isset($booking) ? $booking->notes : '', FALSE);
