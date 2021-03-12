@@ -158,7 +158,7 @@ class Bookings_model extends CI_Model
 
 			if ($booking->date == NULL) {
 				// If no date set, then it's a static/timetable/recurring booking
-				$cell['class'] = 'static';
+				$cell['class'] = 'staff';
 				$cell['body'] = '';
 				$display_user_setting = setting('bookings_show_user_recurring');
 			} else {
