@@ -59,17 +59,19 @@ if ($this->userauth->logged_in()) {
 		<!-- Ngambil data Ruangan -->
 		<!-- $output3 = html_escape(strlen($this->userauth->room->name) > 1 ? $this->userauth->room->name : $this->userauth->room->name); -->
 
-		<h3 align:'center'>Jadwal Minggu Ini</h3>
+		<h3 align:'center'>My Courses In A Week</h3>
 		<table border='1' width='20%' cellspacing='0' cellpadding='0' id='table2'>
 			<tr>
-				<td align='center'>Mata Kuliah</td>
+				<td align='center'>Day</td>
+				<td align='center'>Course</td>
 				<td align='center'>Sesi</td>
-				<td align='center'>Ruang</td>
+				<td align='center'>Room</td>
 			</tr>
 			<?php foreach ($jadwal as $row) :
-				$output1 = $row->notes;
-				$output2 = $row->sesi;
-				$output3 = $row->ruang;
+				$output1 = date("l", strtotime($row->date));
+				$output2 = $row->notes;
+				$output3 = $row->sesi;
+				$output4 = $row->ruang;
 				// Ini ada if kalau misal si dosen gaada jadwal, maka tabel matkul/sesi/ruangannya diisi -
 				if ($output1 == "") {
 					$output1 = "-";
@@ -86,12 +88,18 @@ if ($this->userauth->logged_in()) {
 				} else {
 					$output3 = $output3;
 				}
+				if ($output4 == "") {
+					$output4 = "-";
+				} else {
+					$output4 = $output4;
+				}
 			?>
 				<!-- Mulai bikin tabelnya -->
 				<tr>
 					<td align='center'><?= $output1 ?></td>
 					<td align='center'><?= $output2 ?></td>
 					<td align='center'><?= $output3 ?></td>
+					<td align='center'><?= $output4 ?></td>
 				</tr>
 			<?php endforeach; ?>
 
