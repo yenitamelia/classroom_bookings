@@ -1269,4 +1269,11 @@ class Bookings_model extends CI_Model
 		$row = $query->result();
 		return $row;
 	}
+	public function get_profile($user_id)
+	{
+		$sql = "SELECT * FROM users WHERE user_id = ?";
+		$query = $this->db->query($sql, [$user_id]);
+		$row = $query->result();
+		return $row;
+	}
 }

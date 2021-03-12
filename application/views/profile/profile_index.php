@@ -108,6 +108,14 @@ if ($this->userauth->logged_in()) {
 }
 ?>
 
+<?php foreach($users as $us) { ?>
+<h3>My details</h3>
+<p>Nama: <?= $us->firstname. " " .$us->lastname; ?></p>
+<p>Email: <?= $us->email; ?></p>
+<p>Foto:  </p>
+<img src="<?= base_url('foto/') . $us->foto; ?>" width="120px" style="margin-left: 50px;">
+<?php } ?>
+
 <h3>My total bookings</h3>
 <ul>
 	<li>Number of bookings ever made: <?php echo $total['all'] ?></li>
