@@ -1259,4 +1259,12 @@ class Bookings_model extends CI_Model
 
 		return $total;
 	}
+
+	public function get_jadwal($user_id)
+	{
+		$sql = "SELECT bookings.user_id, bookings.notes, periods.name AS sesi, rooms.name AS ruang FROM bookings JOIN periods ON bookings.period_id = periods.period_id JOIN rooms ON bookings.room_id = rooms.room_id WHERE bookings.user_id = ?";
+		$query = $this->db->query($sql, [$user_id]);
+		$row = $query->result();
+		return $row;
+	}
 }

@@ -46,38 +46,57 @@ echo iconbar(array(
 <?php
 //userauth->logged_in ngambil data siapa user yg login sekarang
 if ($this->userauth->logged_in()) {
-	// Nah yang disini harusnya ada suatu if kalau hari login yg sekarang tu masih masuk dalam satu minggu ini, jadi yg ditampilin jadwalnya tuh masih jadwal di minggu ini, bukan di minggu2 lainnya.
+	if (!$this->userauth->is_level(ADMINISTRATOR)) {
+?>
+		<!-- Nah yang disini harusnya ada suatu if kalau hari login yg sekarang tu masih masuk dalam satu minggu ini, jadi yg ditampilin jadwalnya tuh masih jadwal di minggu ini, bukan di minggu2 lainnya. -->
 
-	// Trus yg ditampilin dibawah tu diambil data dalam kurun satu minggu ini
+		<!-- Trus yg ditampilin dibawah tu diambil data dalam kurun satu minggu ini -->
 
-	// Ngambil data Matkul
-	$output = html_escape(strlen($this->userauth->booking->notes) > 1 ? $this->userauth->booking->notes : $this->userauth->booking->notes);
-	// Ngambil data Sesi
-	$output2 = html_escape(strlen($this->userauth->period->name) > 1 ? $this->userauth->period->name : $this->userauth->period->name);
-	// Ngambil data Ruangan
-	$output3 = html_escape(strlen($this->userauth->room->name) > 1 ? $this->userauth->room->name : $this->userauth->room->name);
-	echo "<h3 align:'center'>Jadwal Minggu Ini</h3>";
-	// Ini ada if kalau misal si dosen gaada jadwal, maka tabel matkul/sesi/ruangannya diisi -
-	if ($this->userauth->booking->notes == "") {
-		$output = "-";
-	} else {
-		$output = $output;
-	}
-	if ($this->userauth->booking->notes == "") {
-		$output2 = "-";
-	} else {
-		$output2 = $output2;
-	}
-	if ($this->userauth->booking->notes == "") {
-		$output3 = "-";
-	} else {
-		$output3 = $output3;
-	}
-	// Mulai bikin tabelnya
-	echo "<table border='1' width='20%' cellspacing='0' cellpadding='0' id='table2'>";
-	echo "<tr><td align='center'>Mata Kuliah</td><td align='center'>Sesi</td><td align='center'>Ruang</td></tr>";
-	echo "<tr><td align='center'>{$output}</td><td align='center'>{$output2}</td><td align='center'>{$output3}</td></tr>";
-	echo "</table>";
+		<!-- Ngambil data Matkul -->
+		<!-- $output1 = html_escape(strlen($this->booking->notes) > 1 ? $this->userauth->booking->notes : $this->userauth->booking->notes); -->
+		<!-- Ngambil data Sesi -->
+		<!-- $output2 = html_escape(strlen($this->userauth->period->name) > 1 ? $this->userauth->period->name : $this->userauth->period->name); -->
+		<!-- Ngambil data Ruangan -->
+		<!-- $output3 = html_escape(strlen($this->userauth->room->name) > 1 ? $this->userauth->room->name : $this->userauth->room->name); -->
+
+		<h3 align:'center'>Jadwal Minggu Ini</h3>
+		<table border='1' width='20%' cellspacing='0' cellpadding='0' id='table2'>
+			<tr>
+				<td align='center'>Mata Kuliah</td>
+				<td align='center'>Sesi</td>
+				<td align='center'>Ruang</td>
+			</tr>
+			<?php foreach ($jadwal as $row) :
+				$output1 = $row->notes;
+				$output2 = $row->sesi;
+				$output3 = $row->ruang;
+				// Ini ada if kalau misal si dosen gaada jadwal, maka tabel matkul/sesi/ruangannya diisi -
+				if ($output1 == "") {
+					$output1 = "-";
+				} else {
+					$output1 = $output1;
+				}
+				if ($output2 == "") {
+					$output2 = "-";
+				} else {
+					$output2 = $output2;
+				}
+				if ($output3 == "") {
+					$output3 = "-";
+				} else {
+					$output3 = $output3;
+				}
+			?>
+				<!-- Mulai bikin tabelnya -->
+				<tr>
+					<td align='center'><?= $output1 ?></td>
+					<td align='center'><?= $output2 ?></td>
+					<td align='center'><?= $output3 ?></td>
+				</tr>
+			<?php endforeach; ?>
+
+		</table>
+<?php }
 }
 ?>
 

@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 
 class Profile extends MY_Controller
@@ -32,8 +32,15 @@ class Profile extends MY_Controller
 		// Get totals
 		$this->data['total'] = $this->bookings_model->TotalNum($user_id);
 
+		// Get jadwal
+		$this->data['jadwal'] = $this->bookings_model->get_jadwal($user_id);
+
 		$this->data['title'] = 'My Profile';
 		$this->data['showtitle'] = $this->data['title'];
+
+		// var_dump($this->data['jadwal']);
+		// die();
+
 		$this->data['body'] = $this->load->view('profile/profile_index', $this->data, TRUE);
 
 		return $this->render();
@@ -81,7 +88,7 @@ class Profile extends MY_Controller
 		$this->form_validation->set_rules('extension', 'Extension', 'max_length[10]');
 
 		if ($this->form_validation->run() == FALSE) {
-	  		// Validation failed
+			// Validation failed
 			return $this->edit();
 		}
 
@@ -90,7 +97,7 @@ class Profile extends MY_Controller
 			'email' => $this->input->post('email'),
 			'firstname' => $this->input->post('firstname'),
 			'lastname' => $this->input->post('lastname'),
-			'displayname' =>$this->input->post('displayname'),
+			'displayname' => $this->input->post('displayname'),
 			'ext' => $this->input->post('ext'),
 		);
 
@@ -103,7 +110,7 @@ class Profile extends MY_Controller
 		$this->session->set_userdata('displayname', $data['displayname']);
 
 		// Now call database to update user and load appropriate message for return value
-		if ( ! $this->crud_model->Edit('users', 'user_id', $user_id, $data)) {
+		if (!$this->crud_model->Edit('users', 'user_id', $user_id, $data)) {
 			$flashmsg = msgbox('error', 'A database error occured while updating your details.');
 		} else {
 			$flashmsg = msgbox('info', 'Your details have been successfully updated.');
@@ -113,6 +120,4 @@ class Profile extends MY_Controller
 		$this->session->set_flashdata('saved', $flashmsg);
 		redirect('profile');
 	}
-
-
 }
