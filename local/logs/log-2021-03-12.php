@@ -39,3 +39,9 @@ ERROR - 2021-03-12 10:29:49 --> Severity: error --> Exception: Call to undefined
 ERROR - 2021-03-12 10:29:51 --> Severity: error --> Exception: Call to undefined method Bookings_model::get_profile() C:\xampp\htdocs\classroom_bookings\application\controllers\Profile.php 49
 ERROR - 2021-03-12 10:29:54 --> Severity: error --> Exception: Call to undefined method Bookings_model::get_profile() C:\xampp\htdocs\classroom_bookings\application\controllers\Profile.php 49
 ERROR - 2021-03-12 10:30:30 --> Severity: error --> Exception: Call to undefined method Bookings_model::get_profile() C:\xampp\htdocs\classroom_bookings\application\controllers\Profile.php 49
+ERROR - 2021-03-12 12:16:18 --> Userauth: Unsuccessful login for admin. Reasons: ["password_incorrect"]
+ERROR - 2021-03-12 12:16:19 --> Userauth: Unsuccessful login for admin. Reasons: ["password_incorrect"]
+ERROR - 2021-03-12 12:19:07 --> Userauth: Unsuccessful login for ruthmadeline. Reasons: ["password_incorrect"]
+ERROR - 2021-03-12 12:19:13 --> Userauth: Unsuccessful login for ruthmadeline. Reasons: ["password_incorrect"]
+ERROR - 2021-03-12 12:20:54 --> Userauth: Unsuccessful login for ruth. Reasons: ["password_incorrect"]
+ERROR - 2021-03-12 14:38:57 --> Query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1 - Invalid query: UPDATE users SET foto='' where user_id=

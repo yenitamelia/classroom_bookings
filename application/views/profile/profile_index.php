@@ -1,3 +1,10 @@
+<?php foreach($users as $us) { ?>
+<h3>My details</h3>
+<img src="<?= base_url('foto/') . $us->foto; ?>" width="120px" style="margin-right: 50px;">
+<p>Nama : <?= $us->firstname. " " .$us->lastname; ?></p>
+<p>Email : <?= $us->email; ?></p>
+<?php } ?>
+
 <?php
 echo $this->session->flashdata('saved');
 
@@ -108,13 +115,7 @@ if ($this->userauth->logged_in()) {
 }
 ?>
 
-<?php foreach($users as $us) { ?>
-<h3>My details</h3>
-<p>Nama: <?= $us->firstname. " " .$us->lastname; ?></p>
-<p>Email: <?= $us->email; ?></p>
-<p>Foto:  </p>
-<img src="<?= base_url('foto/') . $us->foto; ?>" width="120px" style="margin-left: 50px;">
-<?php } ?>
+
 
 <h3>My total bookings</h3>
 <ul>
