@@ -19,14 +19,8 @@ class Profile extends MY_Controller
 		$this->load->model('users_model');
 	}
 
-	function get_absen(){
-	$id = $this->session->userdata['logged_in']['id']; // dapatkan id user yg login
-	$this->db->select('id, firstname');
-	$this->db->where('user_id', $id);//
-	$this->db->from('firstname');
-	$query = $this->db->get();
-	return $query->result();
-}
+
+
 function index()
 {
 		// Get User ID
@@ -64,7 +58,7 @@ function edit()
 
 	$this->data['users'] = $this->bookings_model->get_profile($user_id);
 
-// Get data profil users
+		// Get data profil users
 	$this->data['user'] = $this->users_model->Get($user_id);
 
 	$columns = array(
