@@ -149,25 +149,25 @@ class Bookings extends MY_Controller
 			case 'day':
 
 				// Display type is one day at a time - all rooms/periods
-				if ($this->input->post('chosen_date')) {
-					$datearr = explode('/', $this->input->post('chosen_date'));
-					if (count($datearr) != 3) {
-						show_error('Invalid date chosen');
-					}
-					$query['date'] = date("Y-m-d", mktime(0, 0, 0, $datearr[1], $datearr[0], $datearr[2]));
-				} else {
-					show_error('No date chosen');
+			if ($this->input->post('chosen_date')) {
+				$datearr = explode('/', $this->input->post('chosen_date'));
+				if (count($datearr) != 3) {
+					show_error('Invalid date chosen');
 				}
+				$query['date'] = date("Y-m-d", mktime(0, 0, 0, $datearr[1], $datearr[0], $datearr[2]));
+			} else {
+				show_error('No date chosen');
+			}
 
 			break;
 
 			case 'room':
 
-				if ($this->input->post('room_id')) {
-					$query['room'] = $this->input->post('room_id');
-				} else {
-					show_error('No day selected');
-				}
+			if ($this->input->post('room_id')) {
+				$query['room'] = $this->input->post('room_id');
+			} else {
+				show_error('No day selected');
+			}
 
 			break;
 
@@ -209,7 +209,7 @@ class Bookings extends MY_Controller
 				$booking->day_num = date('N', strtotime($query['date']));
 			}
 			//if ($this->userauth->is_level(ADMINISTRATOR)) {
-				
+
 			//}
 
 			$this->data['booking'] = $booking;
@@ -221,6 +221,7 @@ class Bookings extends MY_Controller
 		$this->data['rooms'] = $this->rooms_model->Get();
 		$this->data['periods'] = $this->periods_model->Get();
 		$this->data['weeks'] = $this->weeks_model->Get();
+		$this->data['libur'] = $this->db->query("SELECT * FROM holidays")->result_array();
 
 		// Lookups we need if an admin user
 		if ($this->userauth->is_level(ADMINISTRATOR)) {
@@ -345,9 +346,9 @@ class Bookings extends MY_Controller
 		$uri = 'bookings/index?' . http_build_query($query);
 
 		$can_delete = ( ($this->userauth->is_level(ADMINISTRATOR))
-						OR ($user_id == $booking->user_id)
-						OR ( ($user_id == $room->user_id) && ($booking->date != NULL) )
-					);
+			OR ($user_id == $booking->user_id)
+			OR ( ($user_id == $room->user_id) && ($booking->date != NULL) )
+		);
 
 		if ( ! $can_delete) {
 			$this->session->set_flashdata('saved', msgbox('error', "You do not have the correct privileges to cancel this booking."));
@@ -410,6 +411,11 @@ class Bookings extends MY_Controller
 	{
 		// Get ID from form
 		$booking_id = $this->input->post('booking_id');
+		// $date = $this->input->post('date');
+		// $date = date("Y-m-d", strtotime($this->input->post('date')));
+		// var_dump($date);
+		// die();
+
 
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('booking_id', 'Booking ID', 'integer');
@@ -449,8 +455,10 @@ class Bookings extends MY_Controller
 
 		// Determine if this booking is recurring or static.
 		if ($this->input->post('date')) {
-			$date_arr = explode('/', $this->input->post('date'));
-			$booking_data['date'] = date("Y-m-d", mktime(0, 0, 0, $date_arr[1], $date_arr[0], $date_arr[2]));
+			// $date_arr = explode('/', $this->input->post('date'));
+			$booking_data['date'] = date("Y-m-d", strtotime($this->input->post('date')));
+			// var_dump($booking_data['date']);
+			// die();
 			$booking_data['day_num'] = NULL;
 			$booking_data['week_id'] = NULL;
 		}
@@ -496,7 +504,7 @@ class Bookings extends MY_Controller
 		}
 
 		$this->form_validation->set_message('valid_date', 'Invalid date');
-		return FALSE;
+		return TRUE;
 	}
 
 

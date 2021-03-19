@@ -13,8 +13,8 @@ return array(
 	'database' => array(
 		'dsn' => '',
 		'hostname' => 'localhost',
-		'username' => 'admin',
-		'password' => 'admin123',
+		'username' => 'root',
+		'password' => '',
 		'database' => 'ppl',
 		'dbdriver' => 'pdo',
 		'subdriver' => 'mysql',

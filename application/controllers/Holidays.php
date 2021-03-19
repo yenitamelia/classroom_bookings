@@ -119,8 +119,8 @@ class Holidays extends MY_Controller
 
 		$holiday_data = array(
 			'name'=> $this->input->post('name'),
-			'date_start'=>	sprintf("%s-%s-%s", $start_date[2], $start_date[1], $start_date[0]),
-			'date_end'=> sprintf("%s-%s-%s", $end_date[2], $end_date[1], $end_date[0]),
+			'date_start'=>	sprintf("%s/%s/%s", $start_date[0], $start_date[1], $start_date[2]),
+			'date_end'=> sprintf("%s/%s/%s", $end_date[0], $end_date[1], $end_date[2]),
 		);
 
 		if (empty($holiday_id)) {

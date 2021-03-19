@@ -1,11 +1,11 @@
 <fieldset>
 
-	<legend accesskey="U" tabindex="<?php tab_index() ?>">Change Foto</legend>
+	<legend accesskey="U" tabindex="<?php tab_index() ?>">Change Photo</legend>
 
 	<p>
 		<?php foreach($users as $us) { ?>
 			<form action="<?= base_url(''); ?>index.php/profile/ganti_foto" method="POST" enctype="multipart/form-data">
-				<label for="foto" style="margin-right: 110px;"><b>Foto</b></label>
+				<label for="foto" style="margin-right: 110px;"><b>Photo</b></label>
 				<input type="hidden" name="user_id" value="<?= $us->user_id; ?>">
 				<input type="file" name="foto">
 				<button type="submit" style="float: right;">Change</button>
