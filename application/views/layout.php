@@ -93,6 +93,7 @@ if ($this->userauth->logged_in()) {
 				<?php
 				$name = '';
 				if (config_item('is_installed')) {
+					?><img src="<?= base_url('logo/logo.png') ?>" alt="" width="55px" height="55px" style="float: left; padding-right: 10px;"><?php
 					$name = setting('name');
 				}
 				if (strlen($name)) {
