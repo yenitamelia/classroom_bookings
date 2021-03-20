@@ -1,10 +1,18 @@
-<?php foreach($users as $us) { ?>
-<h3>My details</h3>
-<img src="<?= base_url('foto/') . $us->foto; ?>" width="120px" style="margin-right: 50px;">
-<p>Nama : <?= $us->firstname. " " .$us->lastname; ?></p>
-<p>Email : <?= $us->email; ?></p>
+<?php foreach ($users as $us) { ?>
+	<h3>My details</h3>
+	<img src="<?= base_url('foto/') . $us->foto; ?>" width="120px" style="margin-right: 50px;border-radius:50%;border:2px solid lightgray; float:left">
+	<div style="margin-top:10px;">
+		<h5 style="margin-top:50px; color:gray;"><?= $us->firstname . " " . $us->lastname; ?></h5>
+		<h5 style="color:gray;;"><?= $us->email; ?></h5>
+		<?php if (!$this->userauth->is_level(ADMINISTRATOR)) { ?>
+			<h5 style="color:gray;;">as a teacher</h5>
+		<?php } ?>
+		<?php if ($this->userauth->is_level(ADMINISTRATOR)) { ?>
+			<h5 style="color:gray;;">as a admin</h5>
+		<?php } ?>
+	</div>
 <?php } ?>
-
+<p style=" clear: both;margin-top:5px;"></p>
 <?php
 echo $this->session->flashdata('saved');
 
@@ -69,10 +77,10 @@ if ($this->userauth->logged_in()) {
 		<h3 align:'center'>My Courses In A Week</h3>
 		<table border='1' width='20%' cellspacing='0' cellpadding='0' id='table2'>
 			<tr>
-				<td align='center'>Day</td>
-				<td align='center'>Course</td>
-				<td align='center'>Sesi</td>
-				<td align='center'>Room</td>
+				<td align='center' style="padding:5px 24px; background:lightgray"><b>Day</b></td>
+				<td align='center' style="padding:5px 24px; background:lightgray"><b>Course</b></td>
+				<td align='center' style="padding:5px 24px; background:lightgray"><b>Sesi</b></td>
+				<td align='center' style="padding:5px 24px; background:lightgray"><b>Room</b></td>
 			</tr>
 			<?php foreach ($jadwal as $row) :
 				$output1 = date("l", strtotime($row->date));
