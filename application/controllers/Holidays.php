@@ -106,7 +106,6 @@ class Holidays extends MY_Controller
 		$this->form_validation->set_rules('holiday_id', 'ID', 'integer');
 		$this->form_validation->set_rules('name', 'Name', 'required|min_length[1]|max_length[30]');
 		$this->form_validation->set_rules('date_start', 'Start date', 'required|min_length[8]|max_length[10]');
-		$this->form_validation->set_rules('date_end', 'End date', 'required|min_length[8]|max_length[10]');;
 
 		if ($this->form_validation->run() == FALSE) {
 			return (empty($holiday_id) ? $this->add() : $this->edit($holiday_id));
@@ -115,12 +114,10 @@ class Holidays extends MY_Controller
 		$date_format = "Y-m-d";
 
 		$start_date = explode('/', $this->input->post('date_start'));
-		$end_date = explode('/', $this->input->post('date_end'));
 
 		$holiday_data = array(
 			'name'=> $this->input->post('name'),
 			'date_start'=>	sprintf("%s/%s/%s", $start_date[0], $start_date[1], $start_date[2]),
-			'date_end'=> sprintf("%s/%s/%s", $end_date[0], $end_date[1], $end_date[2]),
 		);
 
 		if (empty($holiday_id)) {

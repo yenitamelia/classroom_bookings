@@ -29,14 +29,10 @@ echo form_open('holidays/save', array('class' => 'cssform', 'id' => 'holiday_add
 	<?php echo form_error($field) ?>
 
 	<p>
-		<label for="date_start" class="required">Start Date</label>
+		<label for="date_start" class="required">Date</label>
 		<?php
 		$field = 'date_start';
-		$default = (isset($holiday)
-		            ? date('d/m/Y', strtotime($holiday->date_start))
-		            : date('d/m/Y')
-		        );
-		$value = set_value($field, $default, FALSE);
+		$value = set_value($field, isset($holiday) ? $holiday->date_start : '', FALSE);
 		echo form_input(array(
 			'name' => $field,
 			'id' => $field,
@@ -49,30 +45,6 @@ echo form_open('holidays/save', array('class' => 'cssform', 'id' => 'holiday_add
 		<img style="cursor:pointer" align="top" src="<?= base_url('assets/images/ui/cal_day.png') ?>" width="16" height="16" title="Choose date" onclick="displayDatePicker('date_start', false);" />
 	</p>
 	<?php echo form_error($field) ?>
-
-
-	<p>
-		<label for="date_start" class="required">End Date</label>
-		<?php
-		$field = 'date_end';
-		$default = (isset($holiday)
-		            ? date('d/m/Y', strtotime($holiday->date_end))
-		            : date('d/m/Y')
-		        );
-		$value = set_value($field, $default, FALSE);
-		echo form_input(array(
-			'name' => $field,
-			'id' => $field,
-			'size' => '10',
-			'maxlength' => '10',
-			'tabindex' => tab_index(),
-			'value' => $value,
-		));
-		?>
-		<img style="cursor:pointer" align="top" src="<?= base_url('assets/images/ui/cal_day.png') ?>" width="16" height="16" title="Choose date" onclick="displayDatePicker('date_end', false);" />
-	</p>
-	<?php echo form_error($field) ?>
-
 
 </fieldset>
 

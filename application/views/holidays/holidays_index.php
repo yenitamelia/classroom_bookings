@@ -8,7 +8,7 @@ $iconbar = iconbar(array(
 
 echo $iconbar;
 
-$sort_cols = ["Name", "StartDate", "EndDate", "None"];
+$sort_cols = ["Name", "StartDate", "None"];
 
 ?>
 
@@ -17,9 +17,7 @@ $sort_cols = ["Name", "StartDate", "EndDate", "None"];
 	<thead>
 	<tr class="heading">
 		<td class="h" title="Name">Name</td>
-		<td class="h" title="StartDate">Start Date</td>
-		<td class="h" title="EndDate">End Date</td>
-		<td class="h" title="Duration">Duration</td>
+		<td class="h" title="StartDate">Date</td>
 		<td class="n" title="X"></td>
 	</tr>
 	</thead>
@@ -32,14 +30,6 @@ $sort_cols = ["Name", "StartDate", "EndDate", "None"];
 	<tr>
 		<td><?php echo html_escape($holiday->name) ?></td>
 		<td><?php echo html_escape($holiday->date_start) ?></td>
-		<td><?php echo html_escape($holiday->date_end) ?></td>
-		<td><?php
-		if(strtotime($holiday->date_start) != strtotime($holiday->date_end)){
-			echo timespan(strtotime($holiday->date_start), strtotime($holiday->date_end) + (3600*24));
-		} else {
-			echo "1 Day";
-		}
-		?></td>
 		<td width="45" class="n"><?php
 			$actions['edit'] = 'holidays/edit/'.$holiday->holiday_id;
 			$actions['delete'] = 'holidays/delete/'.$holiday->holiday_id;

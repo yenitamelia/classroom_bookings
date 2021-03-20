@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2021 at 08:54 AM
+-- Generation Time: Mar 20, 2021 at 05:01 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -66,13 +66,7 @@ INSERT INTO `bookings` (`booking_id`, `period_id`, `week_id`, `day_num`, `room_i
 (2, 3, NULL, NULL, 5, 1, '2021-03-10', 'APG', 0),
 (3, 4, NULL, NULL, 5, 1, '2021-03-10', 'Metnum', 0),
 (4, 1, NULL, NULL, 5, 1, '2021-03-16', 'KDJ', 0),
-(5, 1, NULL, NULL, 1, 7, '2021-03-16', 'PPL', 0),
-(6, 1, NULL, NULL, 5, 7, '2021-03-11', 'IMK', 0),
-(7, 3, NULL, NULL, 2, 7, '2021-02-19', 'DMKM', 0),
-(10, 1, NULL, NULL, 5, 7, '2021-03-09', 'KDJ', 0),
-(14, 0, NULL, NULL, 0, 1, NULL, '', 0),
-(15, 1, NULL, NULL, 5, 9, '2021-02-09', '', 0),
-(16, 3, NULL, NULL, 3, 9, '2021-03-09', 'PPL', 0);
+(14, 0, NULL, NULL, 0, 1, NULL, '', 0);
 
 -- --------------------------------------------------------
 
@@ -113,10 +107,10 @@ CREATE TABLE `holidays` (
 --
 
 INSERT INTO `holidays` (`holiday_id`, `name`, `date_start`, `date_end`) VALUES
-(6, 'Cuti Bersama', '19/03/2021', '19/03/2021'),
 (7, 'Sabtu', '20/03/2021', '20/03/2021'),
 (8, 'Minggu', '21/03/2021', '21/03/2021'),
-(9, 'Test libur', '23/03/2021', '23/03/2021');
+(9, 'Liburan', '28/04/2021', '30/04/2021'),
+(10, 'Libur test', '22/03/2021', '');
 
 -- --------------------------------------------------------
 
@@ -307,10 +301,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `department_id`, `username`, `firstname`, `lastname`, `email`, `password`, `authlevel`, `displayname`, `ext`, `lastlogin`, `enabled`, `created`, `foto`) VALUES
-(1, NULL, 'admin', 'Ruth', 'Madeline', 'ruth@stis.ac.id', '$2y$10$7Kk1s0CwiQUWksbksh7No.5M0uvmFUxGLmB02PKERzlFV2vvuOjDm', 1, '', '', '2021-03-19 08:45:33', 1, NULL, 'unnamed.png'),
+(1, NULL, 'admin', 'Admin', 'STIS', 'admin@stis.ac.id', '$2y$10$h9OAj6Aa6HQpVlRNC8r4MuEaVxU11SoSSrOhEq4K3z/LXJvTO/nJS', 1, '', '', '2021-03-20 05:00:24', 1, NULL, 'unnamed.png'),
 (2, 1, 'ulya', 'Ulya', 'Adiwena', 'ulya@stis.ac.id', '$2y$10$LjQKM204XLkgAQTQv/DBHOl3ks8xi8vFnlP6ZzSukFZW0OOo0pRU.', 0, 'ulyaadiwena', '', NULL, 1, NULL, ''),
 (3, 2, 'yenita', 'Yenita', 'Amelia', 'yenita@stis.ac.id', '$2y$10$rGjUxkUMx5UTKgQKVKz3oOaid1TJNVfPwBWiYrMePzn2gBhvlYmbm', 0, 'yenitaamelia', '', '2021-03-10 07:03:01', 1, NULL, ''),
-(9, 2, 'paulina', 'pau', 'lina', 'pau@gmail.com', '$2y$10$.Ftml2TldUnas6GeUiK7CeLsh2qgSkCpdrimHDqW12QpOgS2hU8mK', 2, '', '', '2021-03-19 08:45:58', 1, NULL, 'unnamed.png');
+(9, 2, 'ruth', 'Ruth', 'Madeline', 'ruth@stis.ac.id', '$2y$10$FVCtqGD5GI.pNB/hSJrpZOu9v0k7bTcW40cG8RCEOzDlUT9AIFQnO', 2, 'Ruth', '', '2021-03-20 04:55:06', 1, NULL, 'unnamed.png'),
+(10, 0, 'teacher', '', '', 'teacher@stis.ac.id', '$2y$10$pKZHyVvju2Lyt6SbRSkZ1.klCkbeN/EmnROxk1DECXltDH3vNdjEW', 2, '', '', '2021-03-20 05:01:31', 1, NULL, 'unnamed.png');
 
 -- --------------------------------------------------------
 
@@ -453,7 +448,7 @@ ALTER TABLE `weeks`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `booking_id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `booking_id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -465,7 +460,7 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `holidays`
 --
 ALTER TABLE `holidays`
-  MODIFY `holiday_id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `holiday_id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `lang`
@@ -507,7 +502,7 @@ ALTER TABLE `roomvalues`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `user_id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `weeks`

@@ -14,7 +14,7 @@ class Holidays_model extends CI_Model
 	function Get($holiday_id = NULL)
 	{
 		if ($holiday_id == NULL) {
-			return $this->crud_model->Get('holidays', NULL, NULL, NULL, 'date_start asc, date_end asc');
+			return $this->crud_model->Get('holidays', NULL, NULL, NULL, 'date_start asc');
 		} else {
 			return $this->crud_model->Get('holidays', 'holiday_id', $holiday_id);
 		}

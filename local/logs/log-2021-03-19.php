@@ -411,3 +411,7 @@ ERROR - 2021-03-19 08:37:51 --> Userauth: Unsuccessful login for paulina. Reason
 ERROR - 2021-03-19 08:45:30 --> Severity: Warning --> session_destroy(): Trying to destroy uninitialized session C:\xampp\htdocs\classroom_bookings\application\libraries\Userauth.php 54
 ERROR - 2021-03-19 15:27:07 --> Userauth: Unsuccessful login for ruth. Reasons: ["user_not_found"]
 ERROR - 2021-03-19 15:27:10 --> Userauth: Unsuccessful login for ruth. Reasons: ["user_not_found"]
+ERROR - 2021-03-19 17:06:07 --> Userauth: Unsuccessful login for admin. Reasons: ["password_incorrect"]
+ERROR - 2021-03-19 17:06:14 --> Userauth: Unsuccessful login for admin. Reasons: ["password_incorrect"]
+ERROR - 2021-03-19 17:06:20 --> Userauth: Unsuccessful login for admin. Reasons: ["password_incorrect"]
+ERROR - 2021-03-19 17:06:22 --> Userauth: Unsuccessful login for admin. Reasons: ["password_incorrect"]

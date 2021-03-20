@@ -47,7 +47,7 @@ if (isset($booking) && ! empty($booking->date)) {
 
 
 	<p>
-		<label>Date(mm/dd/yyyy):</label>
+		<label>Date(dd/mm/yyyy):</label>
 		<?php
 		$field = 'date';
 		$default = '';
@@ -63,6 +63,7 @@ if (isset($booking) && ! empty($booking->date)) {
 			'maxlength' => '10',
 			'tabindex' => tab_index(),
 			'value' => $value,
+			'autocomplete' => 'off'
 		));
 		?>
 	</p>
@@ -209,8 +210,6 @@ function DisableDates(date) {
         }
         else
         return noWeekend;
-
-    // return [dates.indexOf(string) == -1];
 
 }
  
