@@ -59,7 +59,7 @@ if ($this->userauth->logged_in()) {
 		echo "</div>";
 	}
 	?>
-	<div class="outer">
+	<div class="outer" style="min-height: calc(100vh - 61.11px - 55.08px)">
 
 		<div class="header">
 
@@ -121,27 +121,18 @@ if ($this->userauth->logged_in()) {
 			<?php echo $body ?>
 		</div>
 
-		<div class="footer">
-			<br />
+	</div>
+	<div class="footer">
+		<br />
 
-			<div id="footer">
-				<?php
-				if (isset($menu)) {
-					foreach ($menu as $link) {
-						echo "\n" . '<a href="' . $link['href'] . '" title="' . $link['title'] . '">' . $link['text'] . '</a>' . "\n";
-						echo img('assets/images/blank.png', FALSE, 'width="16" height="10" alt=" "');
-					}
-				}
-				?>
-				<br /><br />
-				<span style="font-size:90%;color:#678; line-height: 2">
-					<a href="https://www.classroombookings.com/" target="_blank">classroombookings</a> version <?= VERSION ?>.
-					&copy; <?= date('Y') ?> Craig A Rodway.
-					<br />
-					Load time: <?php echo $this->benchmark->elapsed_time() ?> seconds.
-				</span>
-				<br /><br />
-			</div>
+		<div id="footer" style="width:100%; background:#66A2DF;">
+			<span style="font-size:90%;color:black; line-height: 2">
+				<a style="color:black" href="https://www.classroombookings.com/" target="_blank">classroombookings</a> version <?= VERSION ?>.
+				&copy; <?= date('Y') ?> Craig A Rodway.
+				<br />
+				Load time: <?php echo $this->benchmark->elapsed_time() ?> seconds.
+			</span>
+			<br /><br />
 		</div>
 	</div>
 

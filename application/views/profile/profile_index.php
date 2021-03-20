@@ -1,14 +1,14 @@
 <?php foreach ($users as $us) { ?>
 	<h3>My details</h3>
 	<img src="<?= base_url('foto/') . $us->foto; ?>" width="120px" style="margin-right: 50px;border-radius:50%;border:2px solid lightgray; float:left">
-	<div style="margin-top:10px;">
-		<h5 style="margin-top:50px; color:gray;"><?= $us->firstname . " " . $us->lastname; ?></h5>
-		<h5 style="color:gray;;"><?= $us->email; ?></h5>
+	<div style="margin-top:50px;">
+		<p style="color:gray;"><b><?= $us->firstname . " " . $us->lastname; ?></b></p>
+		<p style="color:gray;"><b><?= $us->email; ?></b></p>
 		<?php if (!$this->userauth->is_level(ADMINISTRATOR)) { ?>
-			<h5 style="color:gray;;">as a teacher</h5>
+			<p style="color:gray;">as a teacher</p>
 		<?php } ?>
 		<?php if ($this->userauth->is_level(ADMINISTRATOR)) { ?>
-			<h5 style="color:gray;;">as a admin</h5>
+			<p style="color:gray;">as a admin</p>
 		<?php } ?>
 	</div>
 <?php } ?>
@@ -43,7 +43,7 @@ echo iconbar(array(
 
 
 <?php if ($mybookings) { ?>
-	<h3>My bookings</h3>
+	<h3 style="margin-top: 40px;">My bookings</h3>
 	<ul>
 		<?php
 		foreach ($mybookings as $booking) {
@@ -74,13 +74,13 @@ if ($this->userauth->logged_in()) {
 		<!-- Ngambil data Ruangan -->
 		<!-- $output3 = html_escape(strlen($this->userauth->room->name) > 1 ? $this->userauth->room->name : $this->userauth->room->name); -->
 
-		<h3 align:'center'>My Courses In A Week</h3>
+		<h3 style="margin-top: 40px;">My Courses In A Week</h3>
 		<table border='1' width='20%' cellspacing='0' cellpadding='0' id='table2'>
 			<tr>
-				<td align='center' style="padding:5px 24px; background:lightgray"><b>Day</b></td>
-				<td align='center' style="padding:5px 24px; background:lightgray"><b>Course</b></td>
-				<td align='center' style="padding:5px 24px; background:lightgray"><b>Sesi</b></td>
-				<td align='center' style="padding:5px 24px; background:lightgray"><b>Room</b></td>
+				<td style="padding:5px 24px; background:lightgray"><b>Day</b></td>
+				<td style="padding:5px 24px; background:lightgray"><b>Course</b></td>
+				<td style="padding:5px 24px; background:lightgray"><b>Sesi</b></td>
+				<td style="padding:5px 24px; background:lightgray"><b>Room</b></td>
 			</tr>
 			<?php foreach ($jadwal as $row) :
 				$output1 = date("l", strtotime($row->date));
@@ -125,7 +125,7 @@ if ($this->userauth->logged_in()) {
 
 
 
-<h3>My total bookings</h3>
+<h3 style="margin-top: 40px;">My total bookings</h3>
 <ul>
 	<li>Number of bookings ever made: <?php echo $total['all'] ?></li>
 	<li>Number of bookings this year to date: <?php echo $total['yeartodate'] ?></li>
